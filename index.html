@@ -14,6 +14,26 @@
             background-position: right;
         }
 
+        /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-in-out; /* Transition for fade-out */
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+        }
+        
         /* Fade-in animation */
         @keyframes fadeIn {
             0% {
@@ -89,10 +109,16 @@
 
 <body class="bg-gray-100 text-gray-900">
 
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <img class="w-96" src="images/logo.webp" alt="Young's Professional Plastering Logo">
+    </div>
+
     <!-- Navbar -->
     <nav class="bg-white shadow-lg fixed w-full z-10">
         <div class="container mx-auto px-6 py-4 flex sm-justify-center justify-between items-center">
-            <a href="#" class="hidden md:flex text-xl font-light ">Young's Professional Plastering</a>
+            <img class="md:flex text-xl font-light w-20" src="images/logo.webp" />
+            <!-- <a href="#" class="hidden md:flex text-xl font-light ">Young's Professional Plastering</a> -->
             <div class="flex space-x-6">
                 <a href="#about" class="text-gray-700 hover:text-black transition">About</a>
                 <a href="#services" class="text-gray-700 hover:text-black transition">Services</a>
@@ -105,7 +131,7 @@
     <section id="home" style="min-height: 100vh;"
         class="flex flex-col lg:flex-row justify-between items-center px-6 py-24 lg:px-24 bg-gray-100 landing-image">
         <div class="w-full p-6 rounded-lg bg-white lg:w-1/2 mb-12 lg:mb-0 text-center lg:text-left fade-in">
-            <h1 class="text-5xl font-light mb-6">Expert Plastering Services</h1>
+            <h1 class="text-4xl font-light mb-6">Young's Professional Plastering</h1>
             <p class="text-lg mb-6">Quality craftsmanship for residential and commercial projects.</p>
             <a href="#contact"
                 class="bg-black text-white py-3 px-6 rounded-full shadow-lg hover:bg-gray-800 transition">Get a Free
@@ -116,7 +142,6 @@
     <!-- About Section -->
     <section id="about" class="bg-white px-6 py-24 lg:px-24 fade-in">
         <div class="about-content">
-            
             <div class="about-carousel carousel mt-6 mb-6 fade-in">
                 <div style="height: 650px;" class="carousel-images">
                     <div class="carousel-image">
@@ -189,17 +214,17 @@
         <p>&copy; 2024 Young's Professional Plastering. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for image fading -->
+    <!-- JavaScript for image fading and loading screen -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const images = document.querySelectorAll("section#home .fade-cycle");
-            let currentIndex = 0;
-
-            setInterval(() => {
-                images[currentIndex].classList.add('hidden');
-                currentIndex = (currentIndex + 1) % images.length;
-                images[currentIndex].classList.remove('hidden');
-            }, 4000);
+        // Loading screen functionality
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                const loadingScreen = document.querySelector('.loading-screen');
+                loadingScreen.classList.add('fade-out');
+                setTimeout(function () {
+                    loadingScreen.style.display = 'none';
+                }, 1000); // Delay to match the fade-out duration
+            }, 2000); // 2 seconds delay before starting the fade-out
         });
 
         document.addEventListener('DOMContentLoaded', () => {
